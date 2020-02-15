@@ -3,6 +3,7 @@ import org.specs2.mutable.Specification
 import org.specs2.specification.core.Fragment
 
 class SortSpec extends Specification with ScalaCheck {
+
   private def sortChecks(sort: Vector[Int] => Vector[Int]): Fragment = {
     "return sorted array" in {
       prop { input: Vector[Int] =>

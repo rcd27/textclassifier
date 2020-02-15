@@ -11,9 +11,7 @@ import scala.math.log
  */
 case class NaiveBayesModel(lengths: Map[String, Int],
                            docCount: Map[String, Int],
-                           // FIXME: понять, почему такая структура данных
-                           // FIXME: переделать MapView в Map
-                           wordsCount: Map[String, MapView[String, Int]],
+                           wordsCount: Map[String, Map[String, Int]],
                            dictionarySize: Int) {
 
   /* log of probability to find a word in a certain class */

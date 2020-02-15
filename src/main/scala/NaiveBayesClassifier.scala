@@ -1,6 +1,5 @@
 class NaiveBayesClassifier(model: NaiveBayesModel) {
 
-  // FIXME: отрабатывает при классификации спама и не отрабатывает при классификации хама
   def classify(s: String): String = {
     model
       .classes

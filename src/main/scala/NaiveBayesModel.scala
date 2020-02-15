@@ -1,4 +1,3 @@
-import scala.collection.MapView
 import scala.math.log
 
 /**
@@ -18,7 +17,6 @@ case class NaiveBayesModel(lengths: Map[String, Int],
   def wordLogProbability(`class`: String, word: String): Double =
     log((wordsCount(`class`).getOrElse(word, 0) + 1.0) / (lengths(`class`).toDouble + dictionarySize))
 
-  // FIXME: translate it right
   /* log of probability of a class */
   def classLogProbability(`class`: String): Double = log(docCount(`class`).toDouble / docCount.values.sum)
 

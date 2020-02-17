@@ -1,3 +1,3 @@
 package reader
 
-case class JsonDocument (text: String, category: Int )
+case class JsonDocument(text: String, category: Int)

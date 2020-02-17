@@ -1,3 +1,5 @@
+package reader;
+
 import com.opencsv.bean.CsvBindByName;
 
 // FIXME: переделать наскаловский класс

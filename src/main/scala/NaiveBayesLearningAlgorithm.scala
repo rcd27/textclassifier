@@ -9,6 +9,7 @@ object NaiveBayesLearningAlgorithm {
 
   /* Words in document */
   private val tokenizeTuple = (v: (String, String)) => tokenize(v._1)
+
   /* Number of words in document */
   private val calculateWords = (l: Vector[(String, String)]) => l.map(tokenizeTuple(_).length).sum
 
@@ -16,6 +17,7 @@ object NaiveBayesLearningAlgorithm {
     examples = (ex, `class`) +: examples
   }
 
+  // TODO: вынести в отдельный класс, отвечающий за обработку текста
   def tokenize(inputText: String): Array[String] = {
     inputText.split(' ')
       .view

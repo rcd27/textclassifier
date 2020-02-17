@@ -3,7 +3,6 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
   def classify(text: String): String = {
     model
       .classes
-      .toList
       .map(c => (c, calculateProbability(c, text)))
       .maxBy(_._2)(Ordering.Double.TotalOrdering)
       ._1

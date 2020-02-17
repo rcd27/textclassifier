@@ -11,10 +11,8 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
 
   /* Count a probability of document for a class */
   private def calculateProbability(`class`: String, text: String): Double = {
-    // FIXME: опять разделение по пробелам, повторяющийся код
-    val tokenize: String => Array[String] = _.split(' ')
-
-    tokenize(text)
+    // FIXME: два раза tokenize, при чём из разных классов
+    NaiveBayesLearningAlgorithm.tokenize(text)
       .map(model.wordLogProbability(`class`, _))
       .sum
     +model.classLogProbability(`class`)

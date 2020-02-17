@@ -6,7 +6,7 @@ class ClassifierSpec extends Specification {
 
   "Classifier " should {
     "be able to classify SPAM" in {
-      val alg = new NaiveBayesLearningAlgorithm()
+      val alg = NaiveBayesLearningAlgorithm
       alg.addExample("предоставляю услуги бухгалтера проститутки", "SPAM")
       alg.addExample("спешите купить виагру", "SPAM")
       alg.addExample("надо купить молоко", "HAM")
@@ -15,7 +15,7 @@ class ClassifierSpec extends Specification {
       bestClass equals "SPAM" must beTrue
     }
     "be able to classify HAM" in {
-      val alg = new NaiveBayesLearningAlgorithm()
+      val alg = NaiveBayesLearningAlgorithm
       alg.addExample("предоставляю услуги бухгалтера проститутки", "SPAM")
       alg.addExample("спешите купить виагру", "SPAM")
       alg.addExample("надо прикупить молоко", "HAM")
@@ -25,7 +25,7 @@ class ClassifierSpec extends Specification {
       bestClass equals "HAM" must beTrue
     }
     "be able to classify negative text" in {
-      val alg = new NaiveBayesLearningAlgorithm()
+      val alg = NaiveBayesLearningAlgorithm
 
       val addDocToAlg: Consumer[CsvDocument] = { doc => alg.addExample(doc.getText, doc.getCategory.toString) }
 

@@ -1,7 +1,7 @@
 import com.opencsv.bean.CsvBindByName;
 
 // FIXME: переделать наскаловский класс
-public class Document {
+public class CsvDocument {
 
   @CsvBindByName(required = true)
   private String text;

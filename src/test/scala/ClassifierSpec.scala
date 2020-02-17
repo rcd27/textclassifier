@@ -1,3 +1,5 @@
+import java.util.function.Consumer
+
 import org.specs2.mutable.Specification
 
 class ClassifierSpec extends Specification {
@@ -21,6 +23,20 @@ class ClassifierSpec extends Specification {
 
       val bestClass = alg.classifier.classify("надо купить сигареты")
       bestClass equals "HAM" must beTrue
+    }
+    "be able to classify negative text" in {
+      val alg = new NaiveBayesLearningAlgorithm()
+
+      val addDocToAlg: Consumer[CsvDocument] = { doc => alg.addExample(doc.getText, doc.getCategory.toString) }
+
+      val negatives = CSVReader.read("negative.csv")
+      negatives.forEach(addDocToAlg)
+
+      CSVReader.read("positive.csv").forEach(addDocToAlg)
+
+      // FIXME: это стопроцентно должно быть "-1", возможно дело в чистке от всяких ненужных знаков
+      val bestClass = alg.classifier.classify(negatives.get(40).getText)
+      bestClass equals "-1" must beTrue
     }
   }
 }

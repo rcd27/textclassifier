@@ -1,3 +1,5 @@
+package temp
+
 object SortImpl {
   def sort(input: Vector[Int]): Vector[Int] = input.sorted
 

@@ -1,6 +1,6 @@
 class NaiveBayesClassifier(model: NaiveBayesModel) {
 
-  def classify(text: String): String = {
+  def classify(text: String): DocClass = {
     model
       .classes
       .map(c => (c, calculateProbability(c, text)))
@@ -9,7 +9,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
   }
 
   /* Count a probability of document for a class */
-  private def calculateProbability(`class`: String, text: String): Double = {
+  private def calculateProbability(`class`: DocClass, text: String): Double = {
     // FIXME: два раза tokenize, при чём из разных классов
     NaiveBayesLearningAlgorithm.tokenize(text)
       .map(model.wordLogProbability(`class`, _))

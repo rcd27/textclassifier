@@ -6,7 +6,7 @@ class NaiveBayesLearningAlgorithmTest extends Specification {
     "tokenize" in {
 
       val input = "Что, там такое?8( НичЁ не понимаю.."
-      val expected = "что там такое ничё не понимаю".split(' ')
+      val expected = "что там такое ничё не понимаю".split(' ').map(new Word(_))
 
       val result = NaiveBayesLearningAlgorithm.tokenize(input)
 

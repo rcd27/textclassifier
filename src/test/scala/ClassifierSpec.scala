@@ -9,7 +9,7 @@ class ClassifierSpec extends Specification {
     "be able to classify negative text" in {
       val alg = NaiveBayesLearningAlgorithm
 
-      val addDocToAlg: Consumer[CsvDocument] = { doc => alg.addExample(doc.getText, doc.getCategory.toString) }
+      val addDocToAlg: Consumer[CsvDocument] = { doc => alg.addExample(new Document(doc.getText), new DocClass(doc.getCategory.toString)) }
 
       val negatives = CSVReader.read("negative.csv")
       negatives.forEach(addDocToAlg)

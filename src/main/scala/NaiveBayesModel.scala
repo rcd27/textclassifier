@@ -33,4 +33,4 @@ class DocClass(val get: String) extends AnyVal
 
 class Count(val get: Int) extends AnyVal
 
-class Document(val get: String) extends AnyVal
+class Document(val text: String) extends AnyVal

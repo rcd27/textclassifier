@@ -7,12 +7,6 @@ object NaiveBayesLearningAlgorithm {
   /* Collection of examples, where pair is (Document, Classifier) */
   private var examples: Vector[(Document, DocClass)] = Vector.empty
 
-  /* Words in document */
-  private val tokenizeTuple: ((Document, DocClass)) => Array[Word] = (v: (Document, DocClass)) => tokenize(v._1.get)
-
-  /* Number of words in document */
-  private val calculateWords: Vector[(Document, DocClass)] => Int = (l: Vector[(Document, DocClass)]) => l.map(tokenizeTuple(_).length).sum
-
   def addExample(ex: Document, `class`: DocClass): Unit = {
     examples = (ex, `class`) +: examples
   }
@@ -31,7 +25,17 @@ object NaiveBayesLearningAlgorithm {
       .toArray
   }
 
-  def dictionary: Set[Word] = examples.map(tokenizeTuple).flatten.toSet
+  /* Words in text */
+  def tokenizeTuple(token: (Document, DocClass)): Array[Word] = {
+    tokenize(token._1.text)
+  }
+
+  /* Number of words in document */
+  def calculateWords(input: Vector[(Document, DocClass)]): Int = {
+    input.map(tokenizeTuple(_).length).sum
+  }
+
+  def dictionary: Set[Word] = examples.flatMap(tokenizeTuple).toSet
 
   def model: NaiveBayesModel = {
     val docsByClass = examples.groupBy(_._2)
@@ -39,8 +43,7 @@ object NaiveBayesLearningAlgorithm {
     val docCounts = docsByClass.view.mapValues(_.length).toMap
     val wordsCount = docsByClass.view
       .mapValues(
-        _.map(tokenizeTuple)
-          .flatten
+        _.flatMap(tokenizeTuple)
           .groupBy(x => x)
           .view.mapValues(_.length).toMap
       ).toMap

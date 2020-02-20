@@ -24,7 +24,7 @@ class NaiveBayesLearningAlgorithm(input: Vector[(Document, DocClass)]) {
     val wordsCount = docsByClass.view
       .mapValues(
         _.flatMap(tokenizeTuple)
-          .groupBy(x => x)
+          .groupBy(identity)
           .view.mapValues(_.length).toMap
       ).toMap
 

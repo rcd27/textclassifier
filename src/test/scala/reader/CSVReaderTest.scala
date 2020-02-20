@@ -8,7 +8,7 @@ class CSVReaderTest extends Specification {
 
   "CSVReaderTest" should {
     "read" in {
-      val result: util.List[CsvDocument] = CSVReader.read("positive.csv")
+      val result: Vector[CsvDocument] = CSVReader.read("positive.csv")
       // TODO: проверить поля каждого элемента, что они не пустые
       result should not be empty
     }

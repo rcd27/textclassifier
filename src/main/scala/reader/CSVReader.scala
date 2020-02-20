@@ -1,15 +1,15 @@
 package reader
 
 import java.io.FileReader
-import java.util
 
 import com.opencsv.bean.CsvToBeanBuilder
 
-// FIXME: вернуть Vector[Document]
+import scala.jdk.CollectionConverters._
+
 object CSVReader {
-  def read(documentName: String): util.List[CsvDocument] = {
+  def read(documentName: String): Vector[CsvDocument] = {
     new CsvToBeanBuilder[CsvDocument](new FileReader(documentName))
       .withType(classOf[CsvDocument])
-      .build().parse()
+      .build().parse().asScala.toVector
   }
 }

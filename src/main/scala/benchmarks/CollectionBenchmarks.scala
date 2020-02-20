@@ -12,10 +12,10 @@ import scala.util.Random
 @BenchmarkMode(Array(Mode.Throughput))
 class CollectionBenchmarks {
   @Benchmark
-  def listAppend(scope: BenchmarkState) = scope.randomList :+ 1
+  def listAppend(scope: BenchmarkState): List[Int] = scope.randomList :+ 1
 
   @Benchmark
-  def listPrepend(scope: BenchmarkState) = 1 +: scope.randomList
+  def listPrepend(scope: BenchmarkState): List[Int] = 1 +: scope.randomList
 }
 
 @State(Scope.Benchmark)

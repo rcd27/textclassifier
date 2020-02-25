@@ -7,7 +7,7 @@ object PorterAnalyzer {
 
   val analyzer = new RussianAnalyzer()
 
-  def analyze(input: String): Vector[Term] = {
+  def tokenize(input: String): Vector[Term] = {
 
     val ts = analyzer.tokenStream("text", input)
     ts.reset()
@@ -22,9 +22,9 @@ object PorterAnalyzer {
 
       out.addOne(Term(word, offsets.startOffset(), offsets.endOffset()))
     }
+    ts.end()
+    ts.close()
 
     out.toVector
   }
 }
-
-case class Term(word: String, start: Int, end: Int)

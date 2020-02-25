@@ -12,10 +12,14 @@ class ClassifierSpec extends Specification {
       val alg = new NaiveBayesLearningAlgorithm(negatives ++ positives)
 
       val tuple = negatives.apply(40)
+      val expected: String = tuple._2.get
+      assert(expected == (-1).toString)
+
       // FIXME: это стопроцентно должно быть "-1"
       val bestClass = alg.classifier.classify(tuple._1.text)
-      assert(tuple._2.get == (-1).toString)
-      bestClass equals "-1" must beTrue
+      val actual: String = bestClass.get
+
+      actual.shouldEqual(expected)
     }
   }
 }

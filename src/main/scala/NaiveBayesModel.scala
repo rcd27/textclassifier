@@ -10,11 +10,11 @@ import scala.math.log
  */
 case class NaiveBayesModel(lengths: Map[DocClass, Int],
                            docCount: Map[DocClass, Int],
-                           wordsCount: Map[DocClass, Map[Word, Int]],
+                           wordsCount: Map[DocClass, Map[Term, Int]],
                            dictionarySize: Int) {
 
   /* log of probability to find a word in a certain class */
-  def wordLogProbability(`class`: DocClass, word: Word): Double =
+  def wordLogProbability(`class`: DocClass, word: Term): Double =
     log((wordsCount.getOrElse(`class`, Map.empty)
       .getOrElse(word, 0) + 1.0) / (lengths(`class`).toDouble + dictionarySize))
 
@@ -25,8 +25,6 @@ case class NaiveBayesModel(lengths: Map[DocClass, Int],
   def classes: Set[DocClass] = docCount.keySet
 }
 
-class Word(val get: String) extends AnyVal
-
 class Length(val get: Int) extends AnyVal
 
 class DocClass(val get: String) extends AnyVal
@@ -34,3 +32,5 @@ class DocClass(val get: String) extends AnyVal
 class Count(val get: Int) extends AnyVal
 
 class Document(val text: String) extends AnyVal
+
+case class Term(word: String, start: Int, end: Int)

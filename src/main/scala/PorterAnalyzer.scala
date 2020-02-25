@@ -20,7 +20,7 @@ object PorterAnalyzer {
 
       val offsets = ts.getAttribute(classOf[OffsetAttribute])
 
-      out.addOne(Term(word, offsets.startOffset(), offsets.endOffset()))
+      out.addOne(Term(new Word(word), offsets.startOffset(), offsets.endOffset()))
     }
     ts.end()
     ts.close()

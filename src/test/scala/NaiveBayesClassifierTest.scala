@@ -1,9 +1,9 @@
 import org.specs2.mutable.Specification
 import reader.{CSVReader, CsvDocument}
 
-class ClassifierSpec extends Specification {
+class NaiveBayesClassifierTest extends Specification {
 
-  "Classifier " should {
+  "NaiveBayesClassifier " should {
     "be able to classify negative text" in {
       val toDocumentTuple: CsvDocument => (Document, DocClass) = csv => (new Document(csv.getText), new DocClass(csv.getCategory.toString))
       val negatives = CSVReader.read("negative.csv").map(toDocumentTuple)

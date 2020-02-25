@@ -13,7 +13,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
   private def calculateProbability(`class`: DocClass, text: String): Double = {
     // FIXME: два раза tokenize, при чём из разных классов
     PorterAnalyzer.tokenize(text)
-      .map(model.wordLogProbability(`class`, _))
+      .map(term => model.wordLogProbability(`class`, term.word))
       .sum
     +model.classLogProbability(`class`)
   }

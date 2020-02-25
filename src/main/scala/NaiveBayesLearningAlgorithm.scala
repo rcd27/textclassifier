@@ -4,8 +4,8 @@
 
 class NaiveBayesLearningAlgorithm(input: Vector[(Document, DocClass)]) {
   /* Words in text */
-  def tokenizeTuple(token: (Document, DocClass)): Vector[Term] = {
-    PorterAnalyzer.tokenize(token._1.text)
+  def tokenizeTuple(token: (Document, DocClass)): Vector[Word] = {
+    PorterAnalyzer.tokenize(token._1.text).map(_.word)
   }
 
   /* Number of words in document */
@@ -13,7 +13,7 @@ class NaiveBayesLearningAlgorithm(input: Vector[(Document, DocClass)]) {
     input.map(tokenizeTuple(_).length).sum
   }
 
-  def dictionary: Set[Term] = input.flatMap(tokenizeTuple).toSet
+  def dictionary: Set[Word] = input.flatMap(tokenizeTuple).toSet
 
   def model: NaiveBayesModel = {
     val docsByClass = input.groupBy(_._2)

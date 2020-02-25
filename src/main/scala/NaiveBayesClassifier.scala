@@ -4,7 +4,6 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
     model
       .classes
       .map(c => (c, calculateProbability(c, text)))
-      // FIXME: если поменять на minBy(_._2), то всё заработает
       .maxBy(_._2)(Ordering.Double.TotalOrdering)
       ._1
   }
@@ -12,9 +11,9 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
   /* Count a probability of document for a class */
   private def calculateProbability(`class`: DocClass, text: String): Double = {
     // FIXME: два раза tokenize, при чём из разных классов
-    PorterAnalyzer.tokenize(text)
+    val wordProbability = PorterAnalyzer.tokenize(text)
       .map(term => model.wordLogProbability(`class`, term.word))
       .sum
-    +model.classLogProbability(`class`)
+    wordProbability + model.classLogProbability(`class`)
   }
 }

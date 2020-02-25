@@ -9,8 +9,8 @@ class PorterAnalyzerTest extends Specification {
       val testData = "тестовая строка"
       val result = PorterAnalyzer.tokenize(testData)
       val expected = new VectorBuilder[Term]()
-        .addOne(Term("тестов", 0, 8))
-        .addOne(Term("строк", 9, 15)).result()
+        .addOne(Term(new Word("тестов"), 0, 8))
+        .addOne(Term(new Word("строк"), 9, 15)).result()
       result should beEqualTo(expected)
     }
   }

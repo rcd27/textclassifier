@@ -15,11 +15,7 @@ case class NaiveBayesModel(lengths: Map[DocClass, Int],
 
   /* log of probability to find a word in a certain class */
   def wordLogProbability(`class`: DocClass, word: Word): Double = {
-    val wordsCountForCurrentClass = wordsCount.getOrElse(`class`, Map.empty)
-    val currentWordCountInCurrentClass = wordsCountForCurrentClass
-      .getOrElse(word, 0) + 1.0
-    val i = lengths(`class`)
-    log(currentWordCountInCurrentClass / (i.toDouble + dictionarySize))
+    log((wordsCount(`class`).getOrElse(word, 0) + 1.0) / (lengths(`class`).toDouble + dictionarySize))
   }
 
   /* log of probability of a class */

@@ -8,5 +8,6 @@ libraryDependencies += "org.specs2" %% "specs2-core" % "4.8.3"
 libraryDependencies += "org.specs2" %% "specs2-scalacheck" % "4.8.3"
 libraryDependencies += "com.opencsv" % "opencsv" % "5.1"
 libraryDependencies += "com.typesafe.play" %% "play-json" % "2.8.1"
+libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "7.2.1"
 
 enablePlugins(JmhPlugin)

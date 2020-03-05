@@ -1,8 +1,10 @@
+import scala.collection.mutable.ArrayBuffer
+
 class NaiveBayesClassifier(model: NaiveBayesModel) {
 
-  def classify(text: String): DocClassification = {
+  def classify(inputRawText: String): DocClassification = {
     // FIXME: два раза tokenize, при чём из разных классов
-    val tokenizedText: Vector[Term] = PorterAnalyzer.tokenize(text)
+    val tokenizedText: Vector[Term] = PorterAnalyzer.tokenize(inputRawText)
 
     val docClass: DocClass =
       model.classes
@@ -15,7 +17,31 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
       .sortBy(pair => pair._2)
       .take(3)
 
-    new DocClassification(docClass, new HighlightedText("*highlightedText*"))
+    val arr: ArrayBuffer[Char] = ArrayBuffer.empty
+    inputRawText.toIndexedSeq
+      .zipWithIndex
+      .foreach(cd => {
+        val currentChar = cd._1
+        val currentId = cd._2
+        // search for current index in top3word
+        val currentCharIsStart: Option[(Term, Double)] = top3words.find(td => td._1.start == currentId)
+        val currentCharIsEnd: Option[(Term, Double)] = top3words.find(td => td._1.end == currentId + 1)
+
+        // TODO: переделать на pattern matching
+        if (currentCharIsStart.nonEmpty) {
+          arr.addOne('*')
+          arr.addOne(currentChar)
+        } else if (currentCharIsEnd.nonEmpty) {
+          arr.addOne(currentChar)
+          arr.addOne('*')
+        } else {
+          arr.addOne(currentChar)
+        }
+      })
+
+    val result = arr.mkString
+
+    new DocClassification(docClass, new HighlightedText(result))
   }
 
   /* Count a probability of document for a class */

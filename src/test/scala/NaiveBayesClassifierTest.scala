@@ -22,7 +22,7 @@ class NaiveBayesClassifierTest extends Specification {
     }
 
     "return highlighted text" in {
-      docClassification.highlightedText.get shouldEqual "*highlightedText*"
+      docClassification.highlightedText.get shouldEqual "@volkova_v *Мясорубка* *пожирает* деньги *налогоплательщиков*... ((("
     }
   }
 }

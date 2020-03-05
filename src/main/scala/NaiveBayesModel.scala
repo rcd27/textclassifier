@@ -29,7 +29,11 @@ class Word(val get: String) extends AnyVal
 
 class Length(val get: Int) extends AnyVal
 
+class DocClassification(val docClass: DocClass,val  highlightedText: HighlightedText)
+
 class DocClass(val get: String) extends AnyVal
+
+class HighlightedText(val get: String) extends AnyVal
 
 class Count(val get: Int) extends AnyVal
 

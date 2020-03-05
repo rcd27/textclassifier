@@ -15,8 +15,8 @@ class NaiveBayesClassifierTest extends Specification {
       val expected: String = tuple._2.get
       assert(expected == (-1).toString)
 
-      val bestClass = alg.classifier.classify(tuple._1.text)
-      val actual: String = bestClass.get
+      val bestClass: DocClassification = alg.classifier.classify(tuple._1.text)
+      val actual: String = bestClass.docClass.get
 
       actual.shouldEqual(expected)
     }

@@ -33,7 +33,15 @@ class Length(val get: Int) extends AnyVal
 
 class DocClassification(val docClass: DocClass, val highlightedText: HighlightedText)
 
-class DocClass(val get: String) extends AnyVal
+class DocClass(val raw: String) extends AnyVal {
+  def pretty(): String = {
+    raw match {
+      case "1" => "Позитив"
+      case "-1" => "Негатив фуфу"
+      case _ => "N/A"
+    }
+  }
+}
 
 class HighlightedText(val get: String) extends AnyVal
 

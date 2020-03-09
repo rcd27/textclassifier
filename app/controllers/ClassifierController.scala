@@ -16,23 +16,17 @@ class ClassifierController @Inject()(cc: ControllerComponents) extends AbstractC
   val alg = new NaiveBayesLearningAlgorithm(negatives ++ positives)
 
   val tuple: (Document, DocClass) = negatives.apply(40)
-  val expectedClass: String = tuple._2.get
+  val expectedClass: String = tuple._2.raw
   assert(expectedClass == (-1).toString)
 
   val docClassification: DocClassification = alg.classifier.classify(tuple._1.text)
-  val actualClass: String = docClassification.docClass.get
+  val actualClass: String = docClassification.docClass.raw
+  /////
 
-  def index(inputText: String): Action[AnyContent] = Action {
-    val classificationResult = alg.classifier.classify(inputText)
-    val docClass = Some(classificationResult.docClass.get)
+  def index(inputText: Option[String]): Action[AnyContent] = Action {
+    val classificationResult = alg.classifier.classify(inputText.getOrElse("")) //FIXME: будет пытаться классифицировать пустой текст
+    val docClass = Some(classificationResult.docClass.pretty)
     val highlightedText = Some(classificationResult.highlightedText.get)
-    Ok(views.html.classifier(Some(inputText), docClass, highlightedText))
+    Ok(views.html.classifier(inputText, docClass, highlightedText))
   }
-
-//  def classify(inputText: Option[String]): Action[AnyContent] = Action {
-//    val classificationResult = alg.classifier.classify(inputText.getOrElse(""))
-//    val docClass = Some(classificationResult.docClass.get)
-//    val highlightedText = Some(classificationResult.highlightedText.get)
-//    Ok(views.html.classifier(inputText, docClass, highlightedText))
-//  }
 }

@@ -13,11 +13,11 @@ class NaiveBayesClassifierTest extends Specification {
     val alg = new NaiveBayesLearningAlgorithm(negatives ++ positives)
 
     val tuple = negatives.apply(40)
-    val expectedClass: String = tuple._2.get
+    val expectedClass: String = tuple._2.raw
     assert(expectedClass == (-1).toString)
 
     val docClassification: DocClassification = alg.classifier.classify(tuple._1.text)
-    val actualClass: String = docClassification.docClass.get
+    val actualClass: String = docClassification.docClass.raw
 
     "be able to classify negative text" in {
       actualClass.shouldEqual(expectedClass)

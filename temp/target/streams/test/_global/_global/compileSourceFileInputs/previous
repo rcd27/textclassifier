@@ -1,0 +1,1 @@
+["sbt.Task[scala.collection.immutable.Map[java.lang.String, scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]]",{"2.13.1":{"hashes":[["/home/rcd/Workspace/textclassifier/src/test/scala/SortSpec.scala","bd905eab35e3df3e2365cba229bdbe8c8e900dbf"]],"lastModifiedTimes":[]}}]

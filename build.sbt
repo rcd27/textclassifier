@@ -1,20 +1,17 @@
 name := "textclassifier"
+ 
+version := "1.0" 
+      
+lazy val `playtemplate` = (project in file(".")).enablePlugins(PlayScala)
 
-version := "0.1"
+resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+      
+resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
+      
+scalaVersion := "2.12.2"
 
-scalaVersion := "2.13.1"
+libraryDependencies ++= Seq( jdbc , ehcache , ws , specs2 % Test , guice )
 
-//testing
-libraryDependencies += "org.specs2" %% "specs2-core" % "4.8.3"
-libraryDependencies += "org.specs2" %% "specs2-scalacheck" % "4.8.3"
-//serialization
-libraryDependencies += "com.typesafe.play" %% "play-json" % "2.8.1"
-libraryDependencies += "com.opencsv" % "opencsv" % "5.1"
-//text analyze
-libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "7.2.1"
-//network
-libraryDependencies += "com.typesafe.play" %% "play-ahc-ws-standalone" % "2.1.2"
-//html parsing
-libraryDependencies += "org.jsoup" % "jsoup" % "1.13.1"
+unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  
 
-enablePlugins(JmhPlugin)
+      

@@ -1,0 +1,2 @@
+JMH S 31 benchmarks.CollectionBenchmarks S 61 benchmarks.generated.CollectionBenchmarks_listPrepend_jmhTest S 11 listPrepend S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E U 12 MILLISECONDS E E 
+JMH S 31 benchmarks.CollectionBenchmarks S 60 benchmarks.generated.CollectionBenchmarks_listAppend_jmhTest S 10 listAppend S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E U 12 MILLISECONDS E E 

@@ -10,6 +10,7 @@ class NaiveBayesClassifierTest extends Specification {
     val negatives = CSVReader.read("negative.csv").map(toDocumentTuple)
     val positives = CSVReader.read("positive.csv").map(toDocumentTuple)
 
+    // FIXME: достать из DI
     val alg = new NaiveBayesLearningAlgorithm(negatives ++ positives)
 
     val tuple = negatives.apply(40)

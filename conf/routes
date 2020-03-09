@@ -1,2 +1,2 @@
-GET        /                    controllers.ClassifierController.index(inputText: Option[String])
+GET        /        controllers.ClassifierController.index(inputText: Option[String])
       

@@ -1,1 +1,0 @@
-["sbt.Task[scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]",{"hashes":[["/media/rcd/Share/Workspace/textclassifier/build.sbt","f127f7358cbb1248a4b1cd8ef43051cf8ef34439"],["/media/rcd/Share/Workspace/textclassifier/project/plugins.sbt","8982a072ba4070c7f53f4198a391f8224c460c12"]],"lastModifiedTimes":[]}]

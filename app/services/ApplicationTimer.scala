@@ -1,9 +1,11 @@
 package services
 
 import java.time.{Clock, Instant}
+
 import javax.inject._
 import play.api.Logger
 import play.api.inject.ApplicationLifecycle
+
 import scala.concurrent.Future
 
 /**
@@ -13,15 +15,15 @@ import scala.concurrent.Future
  * long the application was running for.
  *
  * This class is registered for Guice dependency injection in the
- * [[Module]] class. We want the class to start when the application
+ * [[play.api.inject.Module]] class. We want the class to start when the application
  * starts, so it is registered as an "eager singleton". See the code
- * in the [[Module]] class to see how this happens.
+ * in the [[play.api.inject.Module]] class to see how this happens.
  *
  * This class needs to run code when the server stops. It uses the
  * application's [[ApplicationLifecycle]] to register a stop hook.
  */
 @Singleton
-class ApplicationTimer @Inject() (clock: Clock, appLifecycle: ApplicationLifecycle) {
+class ApplicationTimer @Inject()(clock: Clock, appLifecycle: ApplicationLifecycle) {
 
   private val logger: Logger = Logger(this.getClass)
 

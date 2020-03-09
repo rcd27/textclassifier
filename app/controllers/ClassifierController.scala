@@ -25,7 +25,7 @@ class ClassifierController @Inject()(cc: ControllerComponents) extends AbstractC
 
   def index(inputText: Option[String]): Action[AnyContent] = Action {
     val classificationResult = alg.classifier.classify(inputText.getOrElse("")) //FIXME: будет пытаться классифицировать пустой текст
-    val docClass = Some(classificationResult.docClass.pretty)
+    val docClass = Some(classificationResult.docClass.pretty())
     val highlightedText = Some(classificationResult.highlightedText.get)
     Ok(views.html.classifier(inputText, docClass, highlightedText))
   }

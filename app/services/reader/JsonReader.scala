@@ -1,4 +1,4 @@
-package reader
+package services.reader
 
 import play.api.libs.json._
 

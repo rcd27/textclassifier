@@ -1,5 +1,7 @@
+package services
+
 import org.specs2.mutable.Specification
-import reader.{CSVReader, CsvDocument}
+import services.reader.{CSVReader, CsvDocument}
 
 class NaiveBayesClassifierTest extends Specification {
 
@@ -8,14 +10,15 @@ class NaiveBayesClassifierTest extends Specification {
     val negatives = CSVReader.read("negative.csv").map(toDocumentTuple)
     val positives = CSVReader.read("positive.csv").map(toDocumentTuple)
 
+    // FIXME: достать из DI
     val alg = new NaiveBayesLearningAlgorithm(negatives ++ positives)
 
     val tuple = negatives.apply(40)
-    val expectedClass: String = tuple._2.get
+    val expectedClass: String = tuple._2.raw
     assert(expectedClass == (-1).toString)
 
     val docClassification: DocClassification = alg.classifier.classify(tuple._1.text)
-    val actualClass: String = docClassification.docClass.get
+    val actualClass: String = docClassification.docClass.raw
 
     "be able to classify negative text" in {
       actualClass.shouldEqual(expectedClass)

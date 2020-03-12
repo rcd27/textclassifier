@@ -1,4 +1,4 @@
-package benchmarks
+package services.benchmarks
 
 import java.util.concurrent.TimeUnit
 

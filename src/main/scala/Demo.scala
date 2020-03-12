@@ -2,7 +2,8 @@ import akka.actor.ActorSystem
 import org.jsoup.select.Elements
 import org.jsoup.{Jsoup, nodes}
 import play.api.libs.ws.DefaultBodyReadables._
-import play.api.libs.ws.ahc.StandaloneAhcWSClient
+import play.api.libs.ws.StandaloneWSRequest
+import play.api.libs.ws.ahc.{AhcCurlRequestLogger, StandaloneAhcWSClient}
 
 import scala.concurrent.ExecutionContext.Implicits._
 import scala.jdk.CollectionConverters._
@@ -10,8 +11,23 @@ import scala.jdk.CollectionConverters._
 object Demo extends App {
   implicit val actorSystem: ActorSystem = ActorSystem()
 
+  // TODO: добавить логгер блин
   val wsClient: StandaloneAhcWSClient = StandaloneAhcWSClient()
-  wsClient.url("https://pikabu.ru/best").get().map { response =>
+  val superToken: Long = System.currentTimeMillis()
+  val request: StandaloneWSRequest =
+    wsClient.url(s"http://pikabu.ru/best")
+      .withRequestFilter(AhcCurlRequestLogger())
+  val complexRequest = request
+    .addHttpHeaders("Accept" -> "application/json, text/javascript, */*; q=0.01")
+    .addHttpHeaders("x-csrf-token" -> "2ei8t5vd7qg3f28nms7c1nkcfsotvlug")
+    .addHttpHeaders("referer" -> "pikabu.ru")
+    .addHttpHeaders("x-requested-with" -> "XMLHttpRequest")
+    .addHttpHeaders("dnt" -> "1")
+    .addQueryStringParameters("twitmode" -> "1")
+    .addQueryStringParameters("of" -> "v2")
+    .addQueryStringParameters("page" -> "1")
+    .addQueryStringParameters("_" -> s"$superToken")
+  complexRequest.get().map { response =>
     val body: String = response.body[String]
 
     val document: nodes.Document = Jsoup.parse(body)

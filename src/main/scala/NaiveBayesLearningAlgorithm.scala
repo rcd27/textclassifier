@@ -5,7 +5,7 @@
 class NaiveBayesLearningAlgorithm(input: Vector[(Document, DocClass)]) {
   /* Words in text */
   def tokenizeTuple(token: (Document, DocClass)): Vector[Word] = {
-    PorterAnalyzer.tokenize(token._1.text).map(_.word)
+    PorterAnalyzer.tokenize(token._1.text).get.map(_.word)
   }
 
   /* Number of words in document */

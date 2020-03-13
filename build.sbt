@@ -18,7 +18,7 @@ unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/
 libraryDependencies += "com.typesafe.play" %% "play-json" % "2.8.1"
 libraryDependencies += "com.opencsv" % "opencsv" % "5.1"
 // Text analyze
-libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "7.2.1"
+libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "8.4.1"
 // HTML parsing
 libraryDependencies += "org.jsoup" % "jsoup" % "1.13.1"
 

@@ -1,17 +1,16 @@
+package services
+
 import akka.actor.ActorSystem
 import org.jsoup.select.Elements
 import org.jsoup.{Jsoup, nodes}
-import play.api.libs.ws.DefaultBodyReadables._
 import play.api.libs.ws.StandaloneWSRequest
 import play.api.libs.ws.ahc.{AhcCurlRequestLogger, StandaloneAhcWSClient}
-
-import scala.concurrent.ExecutionContext.Implicits._
 import scala.jdk.CollectionConverters._
+import scala.concurrent.ExecutionContext.Implicits.global
 
-object Demo extends App {
+object Hackabu extends App {
   implicit val actorSystem: ActorSystem = ActorSystem()
 
-  // TODO: добавить логгер блин
   val wsClient: StandaloneAhcWSClient = StandaloneAhcWSClient()
   val superToken: Long = System.currentTimeMillis()
   val request: StandaloneWSRequest =

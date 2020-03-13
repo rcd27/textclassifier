@@ -14,9 +14,9 @@ case class NaiveBayesModel(lengths: Map[DocClass, Int],
                            dictionarySize: Int) {
 
   /* log of probability to find a word in a certain class */
-  def wordLogProbability(`class`: DocClass, word: Word): Double =
-    log((wordsCount.getOrElse(`class`, Map.empty)
-      .getOrElse(word, 0) + 1.0) / (lengths(`class`).toDouble + dictionarySize))
+  def wordLogProbability(`class`: DocClass, word: Word): Double = {
+    log((wordsCount(`class`).getOrElse(word, 0) + 1.0) / (lengths(`class`).toDouble + dictionarySize))
+  }
 
   /* log of probability of a class */
   def classLogProbability(`class`: DocClass): Double = log(docCount(`class`).toDouble / docCount.values.sum)
@@ -29,8 +29,14 @@ class Word(val get: String) extends AnyVal
 
 class Length(val get: Int) extends AnyVal
 
+class DocClassification(val docClass: DocClass, val highlightedText: HighlightedText)
+
 class DocClass(val get: String) extends AnyVal
+
+class HighlightedText(val get: String) extends AnyVal
 
 class Count(val get: Int) extends AnyVal
 
 class Document(val text: String) extends AnyVal
+
+case class Term(word: Word, start: Int, end: Int)

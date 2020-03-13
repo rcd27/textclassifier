@@ -1,13 +1,11 @@
-import NaiveBayesLearningAlgorithm.tokenize
-
 /**
  * Learning algorithm
  */
 
 class NaiveBayesLearningAlgorithm(input: Vector[(Document, DocClass)]) {
   /* Words in text */
-  def tokenizeTuple(token: (Document, DocClass)): Array[Word] = {
-    tokenize(token._1.text)
+  def tokenizeTuple(token: (Document, DocClass)): Vector[Word] = {
+    PorterAnalyzer.tokenize(token._1.text).get.map(_.word)
   }
 
   /* Number of words in document */
@@ -32,20 +30,4 @@ class NaiveBayesLearningAlgorithm(input: Vector[(Document, DocClass)]) {
   }
 
   def classifier = new NaiveBayesClassifier(model)
-}
-
-object NaiveBayesLearningAlgorithm {
-  // TODO: вынести в отдельный класс, отвечающий за обработку текста
-  def tokenize(inputText: String): Array[Word] = {
-    inputText.split(' ')
-      .view
-      .map(s =>
-        // TODO: implement implicit String => Word
-        new Word(s.to(LazyList)
-          .filter(c => c.isValidChar && c.isLetter)
-          .map(_.toLower)
-          .mkString)
-      )
-      .toArray
-  }
 }

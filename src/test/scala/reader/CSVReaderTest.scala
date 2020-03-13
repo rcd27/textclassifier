@@ -1,7 +1,5 @@
 package reader
 
-import java.util
-
 import org.specs2.mutable.Specification
 
 class CSVReaderTest extends Specification {

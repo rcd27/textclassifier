@@ -4,7 +4,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
 
   def classify(inputRawText: String): DocClassification = {
     // FIXME: два раза tokenize, при чём из разных классов
-    val tokenizedText: Vector[Term] = PorterAnalyzer.tokenize(inputRawText)
+    val tokenizedText: Vector[Term] = PorterAnalyzer.tokenize(inputRawText).get
 
     val docClass: DocClass =
       model.classes
@@ -16,9 +16,8 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
     val arr: ArrayBuffer[Char] = ArrayBuffer.empty
     inputRawText.toIndexedSeq
       .zipWithIndex
-      .foreach(cd => {
-        val currentChar = cd._1
-        val currentId = cd._2
+      .foreach { cd =>
+        val (currentChar, currentId) = cd
         // search for current index in top3word
         val currentCharIsStart: Option[Term] = top3words.find(_.start == currentId)
         val currentCharIsEnd: Option[Term] = top3words.find(_.end == currentId + 1)
@@ -33,7 +32,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
         } else { // чтобы это был дефолтный кейс "_"
           arr.addOne(currentChar)
         }
-      })
+      }
 
     val result = arr.mkString
 

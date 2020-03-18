@@ -1,3 +1,5 @@
+package services
+
 import org.specs2.mutable.Specification
 
 import scala.collection.immutable.VectorBuilder

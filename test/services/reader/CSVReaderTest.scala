@@ -1,4 +1,4 @@
-package reader
+package services.reader
 
 import org.specs2.mutable.Specification
 

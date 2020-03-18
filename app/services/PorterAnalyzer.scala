@@ -1,3 +1,5 @@
+package services
+
 import org.apache.lucene.analysis.ru.RussianAnalyzer
 import org.apache.lucene.analysis.tokenattributes.{CharTermAttribute, OffsetAttribute}
 

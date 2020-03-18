@@ -1,3 +1,5 @@
+package services
+
 import scala.collection.mutable.ArrayBuffer
 
 class NaiveBayesClassifier(model: NaiveBayesModel) {
@@ -39,7 +41,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
     new DocClassification(docClass, new HighlightedText(result))
   }
 
-  /* Count a probability of document for a class */
+  /* services.Count a probability of document for a class */
   private def calculateProbability(`class`: DocClass, tokenizedText: Vector[Term]): Double = {
     val wordProbability = tokenizedText
       .map(term => model.wordLogProbability(`class`, term.word))

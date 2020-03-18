@@ -1,0 +1,17 @@
+@(text: Option[String],
+    category: Option[String],
+    debug: Option[String])
+
+<h1>Классификатор</h1>
+
+<form action="/" method="get">
+  <label>
+    <textarea name="inputText">@text</textarea>
+  </label>
+  <button type="submit">Классифицировать</button>
+</form>
+
+@if(category.nonEmpty) {
+  <p>Результат: @category</p>
+  <p>@debug</p>
+}

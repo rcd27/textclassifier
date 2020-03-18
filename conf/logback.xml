@@ -39,4 +39,6 @@
         <appender-ref ref="ASYNCSTDOUT"/>
     </root>
 
+    <!--HTTP request logging-->
+    <logger name="play.shaded.ahc.org.asynchttpclient" level="DEBUG"/>
 </configuration>

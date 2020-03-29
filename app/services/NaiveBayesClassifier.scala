@@ -52,7 +52,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
   private def calculateTop3words(`class`: DocClass, tokenizedText: Vector[Term]): Vector[Term] = {
     tokenizedText
       .map(term => (term, model.wordLogProbability(`class`, term.word)))
-      .sortBy(pair => pair._2)
+      .sortBy(pair => pair._2)(Ordering.Double.TotalOrdering)
       .take(3)
       .map(pair => pair._1)
   }

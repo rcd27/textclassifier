@@ -1,2 +1,6 @@
-GET        /            controllers.ClassifierController.index(inputText: Option[String])
-GET        /feed        controllers.FeedController.feed(postsCategory: Option[String])
+GET        /                    controllers.HomeController.index
+GET        /classifier          controllers.ClassifierController.index(inputText: Option[String])
+GET        /feed                controllers.FeedController.feed(postsCategory: Option[String])
+
+# Resoursec
+GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)

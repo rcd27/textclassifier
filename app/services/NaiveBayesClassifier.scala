@@ -1,5 +1,8 @@
 package services
 
+import java.lang.Math.{E, pow}
+
+import scala.collection.immutable.SortedSet
 import scala.collection.mutable.ArrayBuffer
 
 class NaiveBayesClassifier(model: NaiveBayesModel) {
@@ -8,13 +11,26 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
     // FIXME: два раза tokenize, при чём из разных классов
     val tokenizedText: Vector[Term] = PorterAnalyzer.tokenize(inputRawText).get
 
-    val docClass: DocClass =
-      model.classes
-        .map(c => (c, calculateProbability(c, tokenizedText)))
-        .maxBy(_._2)(Ordering.Double.TotalOrdering)
-        ._1
+    val docClassWithProbability: Set[(DocClass, Double)] = model.classes
+      .map(c => (c, calculateProbability(c, tokenizedText)))
 
-    val top3words: Seq[Term] = calculateTop3words(docClass, tokenizedText)
+    val sortedProbabilities =
+      SortedSet.from(
+        docClassWithProbability
+          .map { f: (DocClass, Double) => f._2 })((x: Double, y: Double) => -java.lang.Double.compare(x, y)) // revert sorting
+    val head = sortedProbabilities.head
+    val tail = sortedProbabilities.tail
+
+    val tailPowSum: Double = tail.map {
+      pow(E, _)
+    }.sum
+    val headPow = pow(E, head)
+    val classificationAccuracy = headPow / (headPow + tailPowSum)
+
+    val mostLikelyClass: DocClass =
+      docClassWithProbability.maxBy(_._2)(Ordering.Double.TotalOrdering)._1
+
+    val top3words: Seq[Term] = calculateTop3words(mostLikelyClass, tokenizedText)
     val arr: ArrayBuffer[Char] = ArrayBuffer.empty
     inputRawText.toIndexedSeq
       .zipWithIndex
@@ -38,7 +54,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
 
     val result = arr.mkString
 
-    new DocClassification(docClass, new HighlightedText(result))
+    new DocClassification(mostLikelyClass, classificationAccuracy, new HighlightedText(result))
   }
 
   /* services.Count a probability of document for a class */

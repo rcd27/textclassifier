@@ -36,8 +36,8 @@ class DocClassification(val docClass: DocClass, val classificationAccuracy: Doub
 class DocClass(val raw: String) extends AnyVal {
   def pretty(): String = {
     raw match {
-      case "1" => "Позитив"
-      case "-1" => "Негатив"
+      case "1" => "Позитивный"
+      case "-1" => "Негативный"
       case _ => throw new IllegalArgumentException(s"No handler for class $raw")
     }
   }

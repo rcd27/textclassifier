@@ -3,7 +3,7 @@ package controllers
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import services.reader.{CSVReader, CsvDocument}
-import services.{DocClass, Document, NaiveBayesLearningAlgorithm}
+import services.{DocClass, DocClassification, Document, NaiveBayesLearningAlgorithm}
 
 @Singleton
 class ClassifierController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
@@ -16,9 +16,15 @@ class ClassifierController @Inject()(cc: ControllerComponents) extends AbstractC
   /////
 
   def index(inputText: Option[String]): Action[AnyContent] = Action {
-    val classificationResult = alg.classifier.classify(inputText.getOrElse("")) //FIXME: будет пытаться классифицировать пустой текст
-    val docClass = Some(classificationResult.docClass.pretty())
-    val highlightedText = Some(classificationResult.highlightedText.get)
-    Ok(views.html.classifier(inputText, docClass, highlightedText))
+    val classificationResult: DocClassification = alg.classifier.classify(inputText.getOrElse("")) //FIXME: будет пытаться классифицировать пустой текст
+    val docClass: Some[String] = Some(classificationResult.docClass.pretty())
+    val highlightedText: Some[String] = Some(classificationResult.highlightedText.get)
+
+    // FIXME: логика в контроллере - норм?
+    if (classificationResult.classificationAccuracy >= 0.7) {
+      Ok(views.html.classifier(inputText, docClass, highlightedText))
+    } else {
+      Ok(views.html.classifier(inputText, Some("Нейтральный"), highlightedText))
+    }
   }
 }

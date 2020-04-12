@@ -31,14 +31,14 @@ class Word(val get: String) extends AnyVal
 
 class Length(val get: Int) extends AnyVal
 
-class DocClassification(val docClass: DocClass, val highlightedText: HighlightedText)
+class DocClassification(val docClass: DocClass, val classificationAccuracy: Double, val highlightedText: HighlightedText)
 
 class DocClass(val raw: String) extends AnyVal {
   def pretty(): String = {
     raw match {
-      case "1" => "Позитив"
-      case "-1" => "Негатив фуфу"
-      case _ => "N/A"
+      case "1" => "Позитивный"
+      case "-1" => "Негативный"
+      case _ => throw new IllegalArgumentException(s"No handler for class $raw")
     }
   }
 }

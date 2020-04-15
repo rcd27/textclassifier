@@ -20,7 +20,7 @@ class ClassifierController @Inject()(cc: ControllerComponents) extends AbstractC
     val docClass: Some[String] = Some(classificationResult.docClass.pretty())
     val highlightedText: Some[String] = Some(classificationResult.highlightedText.get)
 
-    // FIXME: логика в контроллере - норм?
+    // TODO: забиндить действие на странице и не обновлять вьюху целиком
     if (classificationResult.classificationAccuracy >= 0.7) {
       Ok(views.html.classifier(inputText, docClass, highlightedText))
     } else {

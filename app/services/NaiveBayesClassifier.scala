@@ -1,14 +1,14 @@
 package services
 
-import java.lang.Math.{E, pow}
+import java.lang.Math.{pow}
 
 import scala.collection.immutable.SortedSet
 import scala.collection.mutable.ArrayBuffer
+import scala.math.Ordering.Double.TotalOrdering
 
 class NaiveBayesClassifier(model: NaiveBayesModel) {
 
   def classify(inputRawText: String): DocClassification = {
-    // FIXME: два раза tokenize, при чём из разных классов
     val tokenizedText: Vector[Term] = PorterAnalyzer.tokenize(inputRawText).get
 
     val docClassWithProbability: Set[(DocClass, Double)] = model.classes
@@ -17,18 +17,20 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
     val sortedProbabilities =
       SortedSet.from(
         docClassWithProbability
-          .map { f: (DocClass, Double) => f._2 })((x: Double, y: Double) => -java.lang.Double.compare(x, y)) // revert sorting
-    val head = sortedProbabilities.head
-    val tail = sortedProbabilities.tail
+          .map { f: (DocClass, Double) => f._2 })(TotalOrdering.reverse)
 
-    val tailPowSum: Double = tail.map {
-      pow(E, _)
-    }.sum
-    val headPow = pow(E, head)
-    val classificationAccuracy = headPow / (headPow + tailPowSum)
+    val classificationAccuracy: Double = sortedProbabilities.toList match {
+      case head :: tail =>
+        val tailPowSum: Double = tail.map {
+          pow(Math.E, _)
+        }.sum
+        val headPow = pow(Math.E, head)
+        headPow / (headPow + tailPowSum)
+      case Nil => 0
+    }
 
     val mostLikelyClass: DocClass =
-      docClassWithProbability.maxBy(_._2)(Ordering.Double.TotalOrdering)._1
+      docClassWithProbability.maxBy(_._2)(TotalOrdering)._1
 
     val top3words: Seq[Term] = calculateTop3words(mostLikelyClass, tokenizedText)
     val arr: ArrayBuffer[Char] = ArrayBuffer.empty
@@ -68,7 +70,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
   private def calculateTop3words(`class`: DocClass, tokenizedText: Vector[Term]): Vector[Term] = {
     tokenizedText
       .map(term => (term, model.wordLogProbability(`class`, term.word)))
-      .sortBy(pair => pair._2)(Ordering.Double.TotalOrdering)
+      .sortBy(pair => pair._2)(TotalOrdering)
       .take(3)
       .map(pair => pair._1)
   }

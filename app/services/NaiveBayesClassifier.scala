@@ -1,6 +1,6 @@
 package services
 
-import java.lang.Math.{pow}
+import java.lang.Math.pow
 
 import scala.collection.immutable.SortedSet
 import scala.collection.mutable.ArrayBuffer

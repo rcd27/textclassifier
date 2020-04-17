@@ -1,4 +1,4 @@
-package services
+package services.classification
 
 import org.apache.lucene.analysis.ru.RussianAnalyzer
 import org.apache.lucene.analysis.tokenattributes.{CharTermAttribute, OffsetAttribute}

@@ -1,4 +1,4 @@
-package services
+package services.classification
 
 import java.lang.Math.pow
 
@@ -59,7 +59,7 @@ class NaiveBayesClassifier(model: NaiveBayesModel) {
     new DocClassification(mostLikelyClass, classificationAccuracy, new HighlightedText(result))
   }
 
-  /* services.Count a probability of document for a class */
+  /* services.classificator.Count a probability of document for a class */
   private def calculateProbability(`class`: DocClass, tokenizedText: Vector[Term]): Double = {
     val wordProbability = tokenizedText
       .map(term => model.wordLogProbability(`class`, term.word))

@@ -1,4 +1,4 @@
-package services
+package services.classification
 
 import org.specs2.mutable.Specification
 

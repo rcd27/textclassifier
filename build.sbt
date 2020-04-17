@@ -10,9 +10,9 @@ resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
 resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
 
-libraryDependencies ++= Seq( jdbc , ehcache , ws , specs2 % Test , guice )
+libraryDependencies ++= Seq(jdbc, ehcache, ws, specs2 % Test, guice)
 
-unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
+unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")
 
 // Serialization
 libraryDependencies += "com.typesafe.play" %% "play-json" % "2.8.1"
@@ -21,5 +21,9 @@ libraryDependencies += "com.opencsv" % "opencsv" % "5.1"
 libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "8.4.1"
 // HTML parsing
 libraryDependencies += "org.jsoup" % "jsoup" % "1.13.1"
+
+// Testing Akka actors
+libraryDependencies += "com.typesafe.akka" %% "akka-actor-testkit-typed" % "2.6.3" % Test
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.1" % Test
 
 enablePlugins(JmhPlugin)

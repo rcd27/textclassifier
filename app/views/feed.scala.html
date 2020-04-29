@@ -1,12 +1,22 @@
 @(postsCategory: String, feed: Vector[String])
-<section id="top">
-  <div class="wrapper">
-    <h1>@postsCategory</h1>
-  </div>
-</section>
 
-<ul>
-@for(post <- feed) {
-  <li>@post</li>
-}
-</ul>
+<head>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+  <title>"Feed"</title>
+</head>
+
+<body>
+  <section id="top">
+    <div class="wrapper">
+      <h1>@postsCategory</h1>
+    </div>
+  </section>
+
+  <div id="content" class="wrapper doc">
+    <article>
+      @for(post <- feed) {
+          <p class="note">@post</p>
+      }
+    </article>
+  </div>
+</body>

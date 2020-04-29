@@ -2,7 +2,7 @@
 
 <head>
   <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-  <title>"Feed"</title>
+  <title>Feed</title>
 </head>
 
 <body>
@@ -14,9 +14,16 @@
 
   <div id="content" class="wrapper doc">
     <article>
-      @for(post <- feed) {
-          <p class="note">@post</p>
-      }
+    @for(post <- feed) {
+      <div class="tweet">
+        <div class="note">
+          <p>@post</p>
+        </div>
+        <div>
+          <img height="42px" src="@routes.Assets.versioned("images/positive.jpg")" alt="">
+        </div>
+      </div>
+    }
     </article>
   </div>
 </body>

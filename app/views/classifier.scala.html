@@ -2,16 +2,27 @@
     category: Option[String],
     debug: Option[String])
 
-<h1>Classifier</h1>
+<head>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+  <title>Classifier</title>
+</head>
 
-<form action="/classifier" method="get">
-  <label>
-    <textarea name="inputText">@text</textarea>
-  </label>
-  <button type="submit">Классифицировать</button>
-</form>
+<body>
+  <article class="wrapper doc">
+    <div class="tweet">
+      <form action="/classifier" method="get">
+        <label class="note">
+          <textarea name="inputText">@text</textarea>
+        </label>
+        <button type="submit">Классифицировать</button>
+      </form>
+    </div>
 
-  @if(category.nonEmpty) {
-    <p>Результат: @category</p>
-    <p>@debug</p>
-  }
+    @if(category.nonEmpty) {
+      <div class="tweet">
+        <p>Результат: @category</p>
+        <p>@debug</p>
+      </div>
+    }
+  </article>
+</body>

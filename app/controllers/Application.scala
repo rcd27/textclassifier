@@ -8,8 +8,8 @@ import org.jsoup.{Jsoup, nodes}
 import play.api.libs.ws.StandaloneWSRequest
 import play.api.libs.ws.ahc.{AhcCurlRequestLogger, StandaloneAhcWSClient}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
-import services.reader.{CSVReader, CsvDocument}
 import services.classification.{DocClass, DocClassification, Document, NaiveBayesLearningAlgorithm}
+import services.reader.{CSVReader, CsvDocument}
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.jdk.CollectionConverters._
